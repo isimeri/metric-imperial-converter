@@ -19,10 +19,10 @@ function ConvertHandler() {
     const regex = /\d*(km|mi|gal|L|kg|lbs)$/i;
     result = input.match(regex)
     // console.log(result);
-    if(result && result[1])
+    if(result && result[1] && result[1].toLowerCase() === 'l')
+      return 'L';
+    else if(result && result[1])
       return result[1].toLowerCase();
-    else if(result && result[1] && result[1].toLowerCase() === 'l')
-      return 'L'
     else return "invalid unit";
   };
   
