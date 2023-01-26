@@ -21,6 +21,8 @@ function ConvertHandler() {
     // console.log(result);
     if(result && result[1])
       return result[1].toLowerCase();
+    else if(result && result[1] && result[1].toLowerCase() === 'l' || )
+      return 'L'
     else return "invalid unit";
   };
   
@@ -43,7 +45,7 @@ function ConvertHandler() {
       case "gal":
         result = 'L';
         break;
-      case "l":
+      case "L":
         result = 'gal';
         break;
       default:
@@ -71,7 +73,7 @@ function ConvertHandler() {
       case "gal":
         result = 'gallons';
         break;
-      case "l":
+      case "L":
         result = 'liters';
         break;
       default:
@@ -105,7 +107,7 @@ function ConvertHandler() {
       case "gal":
         result = initNum * galToL;
         break;
-      case "l":
+      case "L":
         result = initNum / galToL;
         break;
       default:
