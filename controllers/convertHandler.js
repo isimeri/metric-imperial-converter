@@ -43,11 +43,11 @@ function ConvertHandler() {
       case "gal":
         result = 'L';
         break;
-      case "L":
+      case "l":
         result = 'gal';
         break;
       default:
-        result = 'bruh';
+        result = 'invalid unit';
     }
     return result;
   };
@@ -71,11 +71,11 @@ function ConvertHandler() {
       case "gal":
         result = 'gallons';
         break;
-      case "L":
+      case "l":
         result = 'liters';
         break;
       default:
-        result = 'bruh';
+        result = 'invalid unit';
     }
     return result;
   };
@@ -105,7 +105,7 @@ function ConvertHandler() {
       case "gal":
         result = initNum * galToL;
         break;
-      case "L":
+      case "l":
         result = initNum / galToL;
         break;
       default:
