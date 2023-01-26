@@ -21,7 +21,7 @@ function ConvertHandler() {
     // console.log(result);
     if(result && result[1])
       return result[1].toLowerCase();
-    else if(result && result[1] && result[1].toLowerCase() === 'l' || )
+    else if(result && result[1] && result[1].toLowerCase() === 'l')
       return 'L'
     else return "invalid unit";
   };
