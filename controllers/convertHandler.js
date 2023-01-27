@@ -3,9 +3,9 @@ function ConvertHandler() {
   this.getNum = function(input) {
     let result;
     // const regex = /^\d*/;
-    const regex = /(^\d*(?:\.\d+)?)(?:\/(\d+(?:\.\d+)?))?(?:[a-zA-Z]*)$/i;    //la chestii precum 5kh sau 2.1uoi, nu matchueste nici numarul
+    const regex = /(^\d*(?:\.\d+)?)(?:\/(\d+(?:\.\d+)?))?(?:[a-zA-Z]*)$/i;    //la chestii precum 5kh sau 2.1uoi, nu matchueste nici numarul --- REZOLVAT
     result = input.match(regex);
-    if(result && result[1] && result[2] && result[2] !== 0){
+    if(result && result[1] && result[2] && result[2] !== "0"){        //din motive 4/0 imi da infinity in loc de "invalid number"
       return Number(result[1]) / Number(result[2]);
     } else if(result && result[1] && !result[2]){
       return Number(result[1]);
@@ -111,7 +111,7 @@ function ConvertHandler() {
         result = initNum / galToL;
         break;
       default:
-        result = -1;
+        result = "invalid number";
     }
     return result.toFixed(5);
   };
@@ -125,11 +125,11 @@ function ConvertHandler() {
       return "invalid unit";
     } else if(initNum === 'invalid number'){
       console.log("invalid n");
-      return 'invalid number'
+      return 'invalid number';
     }
-    let longInitUnit = this.spellOutUnit(initUnit);
-    let longReturnUnit = this.spellOutUnit(returnUnit)
-    let result = `${initNum} ${longInitUnit} converts to ${returnNum} ${longReturnUnit}`;
+    let initUnitString = this.spellOutUnit(initUnit);
+    let returnUnitString = this.spellOutUnit(returnUnit)
+    let result = `${initNum} ${initUnitString} converts to ${returnNum} ${returnUnitString}`;
     
     return result;
   };
