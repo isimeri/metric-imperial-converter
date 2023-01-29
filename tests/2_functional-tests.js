@@ -1,13 +1,14 @@
 const chaiHttp = require('chai-http');
 const chai = require('chai');
 let assert = chai.assert;
-const server = 'https://metric-imperial-converter.isimeri.repl.co';
+const server = require('../index');   //use this locally
+// const server = 'https://metric-imperial-converter.isimeri.repl.co';  //use this when on replit
 
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
 
-  test('Valid GET request to /api/convert', function(done) {
+  test('should convert a valid input such as 10L', function(done) {
     chai
       .request(server)
       .get('/api/convert?input=10L')
@@ -21,7 +22,7 @@ suite('Functional Tests', function() {
       });
   });
 
-  test('Invalid Unit GET request to /api/convert', function(done) {
+  test('should not convert an invalid input such as 32g --- invalid unit', function(done) {
     chai
       .request(server)
       .get('/api/convert?input=32g')
@@ -32,7 +33,7 @@ suite('Functional Tests', function() {
       });
   });
 
-  test('Invalid Number GET request to /api/convert', function(done) {
+  test('should not convert an invalid input such as 3/7.2/4kg --- invalid number', function(done) {
     chai
       .request(server)
       .get('/api/convert?input=3/7.2/4kg')
@@ -43,7 +44,7 @@ suite('Functional Tests', function() {
       });
   });
 
-  test('Invalid Unit & Number GET request to /api/convert', function(done) {
+  test('should not convert an invalid input such as 3/7.2/4kilomegagram --- invalid number and unit', function(done) {
     chai
       .request(server)
       .get('/api/convert?input=3/7.2/4kilomegagram')
@@ -54,7 +55,7 @@ suite('Functional Tests', function() {
       });
   });
 
-  test('No Numerical Input GET request to /api/convert', function(done) {
+  test('should convert an input with no number such as kg --- default to 1', function(done) {
     chai
       .request(server)
       .get('/api/convert?input=kg')
