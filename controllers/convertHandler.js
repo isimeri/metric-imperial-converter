@@ -5,7 +5,8 @@ function ConvertHandler() {
     // const regex = /^\d*/;
     const regex = /(^\d*(?:\.\d+)?)(?:\/(\d+(?:\.\d+)?))?(?:[a-zA-Z]*)$/i;    //la chestii precum 5kh sau 2.1uoi, nu matchueste nici numarul --- REZOLVAT
     result = input.match(regex);
-    if(result && result[1] && result[2] && result[2] !== "0"){        //din motive 4/0 imi da infinity in loc de "invalid number"
+    if(result && result[1] && result[2] && result[2] != "0"){   
+      console.log("result[2] ", result[2]);     //din motive 4/0 imi da infinity in loc de "invalid number" --- REZOLVAT
       return Number(result[1]) / Number(result[2]);
     } else if(result && result[1] && !result[2]){
       return Number(result[1]);
