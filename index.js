@@ -1,33 +1,33 @@
 'use strict';
 
-const express     = require('express');
+const express = require('express');
 // const bodyParser  = require('body-parser');
-const expect      = require('chai').expect;
-const cors        = require('cors');
+const expect = require('chai').expect;
+const cors = require('cors');
 require('dotenv').config();
 
-const apiRoutes         = require('./routes/api.js');
-const fccTestingRoutes  = require('./routes/fcctesting.js');
-const runner            = require('./test-runner');
+const apiRoutes = require('./routes/api.js');
+const fccTestingRoutes = require('./routes/fcctesting.js');
+const runner = require('./test-runner');
 const convertHandl = require('./controllers/convertHandler.js');
 const convertHandler = new convertHandl;
 
 let app = express();
 
 //=================================================
-const regex = /^((?:[0-9]*)(?:\.\d+)?)(mi|km|gal|l)$/;
+// const regex = /^((?:[0-9]*)(?:\.\d+)?)(mi|km|gal|l)$/;
 //=================================================
 
 app.use('/public', express.static(process.cwd() + '/public'));
-app.use(express.urlencoded({extended: false}));
-app.use(cors({origin: '*'})); //For FCC testing purposes only
+app.use(express.urlencoded({ extended: false }));
+app.use(cors({ origin: '*' })); //For FCC testing purposes only
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 //Index page (static HTML)
 app.route('/')
-  .get(function (req, res) {
+  .get(function(req, res) {
     res.sendFile(process.cwd() + '/views/index.html');
   });
 
@@ -40,9 +40,10 @@ app.get('/api/convert', (req, res) => {
   const returnNum = convertHandler.convert(initNum, initUnit);
   const returnUnit = convertHandler.getReturnUnit(initUnit);
   const responseString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
-  const resObj = {initNum, initUnit, returnNum, returnUnit, string: responseString};
+  const resObj = { initNum, initUnit, returnNum, returnUnit, string: responseString };
   // console.log("in get ", input)
-  if(initNum === 'invalid number' || initUnit === 'invalid unit'){
+  // console.log(res);
+  if (initNum === 'invalid number' || initUnit === 'invalid unit') {
     return res.send(responseString);
   }
   res.json(resObj);
@@ -55,16 +56,19 @@ app.post('/api/convert', (req, res) => {
   const initUnit = convertHandler.getUnit(input);
   const returnNum = convertHandler.convert(initNum, initUnit);
   const returnUnit = convertHandler.getReturnUnit(initUnit);
-  const response = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
-  console.log(response);
-  res.send(response);
+  const responseString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
+
+  const resObj = { initNum, initUnit, returnNum, returnUnit, string: responseString };
+  // console.log(resObj);
+
+  res.send(resObj);
 });
 //For FCC testing purposes
 fccTestingRoutes(app);
 
 //Routing for API 
-apiRoutes(app);  
-    
+apiRoutes(app);
+
 //404 Not Found Middleware
 app.use(function(req, res, next) {
   res.status(404)
@@ -75,16 +79,16 @@ app.use(function(req, res, next) {
 const port = process.env.PORT || 3000;
 
 //Start our server and tests!
-app.listen(port, function () {
+app.listen(port, function() {
   console.log("Listening on port " + port);
-  if(process.env.NODE_ENV==='test') {
+  if (process.env.NODE_ENV === 'test') {
     console.log('Running Tests...');
-    setTimeout(function () {
+    setTimeout(function() {
       try {
         runner.run();
-      } catch(e) {
-          console.log('Tests are not valid:');
-          console.error(e);
+      } catch (e) {
+        console.log('Tests are not valid:');
+        console.error(e);
       }
     }, 1500);
   }
