@@ -67,7 +67,7 @@ app.post('/api/convert', (req, res) => {
 fccTestingRoutes(app);
 
 //Routing for API 
-apiRoutes(app);
+// apiRoutes(app);
 
 //404 Not Found Middleware
 app.use(function(req, res, next) {
@@ -76,7 +76,8 @@ app.use(function(req, res, next) {
     .send('Not Found');
 });
 
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+const port = 3000;
 
 //Start our server and tests!
 app.listen(port, function() {
@@ -90,11 +91,8 @@ app.listen(port, function() {
         console.log('Tests are not valid:');
         console.error(e);
       }
-    }, 1500);
+    }, 5500);
   }
 });
 
 module.exports = app; //for testing
-
-//==========================================
-//de implementat detectia de factii (3/4), zecimale (2.5) si combinatii de factii si zecimale 1.3/8(plm)
