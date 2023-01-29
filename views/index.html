@@ -15,13 +15,17 @@
     </header>
     <hr style='margin: 50px'>
     <section>
-      <h3>Example usage</h3>
-      <code>/api/convert?input=4gal</code><br>
-      <code>/api/convert?input=1/2km</code><br>
-      <code>/api/convert?input=5.4/3lbs</code><br>
-      <code>/api/convert?input=kg</code><br>
-      <h3>Example return</h3>
-      <code>{ initNum: 3.1, initUnit: 'mi', returnNum: 4.98895, returnUnit: 'km', string: '3.1 miles converts to 4.98895 kilometers' }</code>
+      <div class="subsection">
+        <h3>Example usage</h3>
+        <code>/api/convert?input=4gal</code><br>
+        <code>/api/convert?input=1/2km</code><br>
+        <code>/api/convert?input=5.4/3lbs</code><br>
+        <code>/api/convert?input=kg</code><br>
+      </div>
+      <div class="subsection">
+        <h3>Example return</h3>
+        <code>{ initNum: 3.1, initUnit: 'mi', returnNum: 4.98895, returnUnit: 'km', string: '3.1 miles converts to 4.98895 kilometers' }</code>
+      </div>
     </section>
     <hr style='margin: 50px'>
     <section>
@@ -31,8 +35,8 @@
           <input type="text" id="convertField" name="input" placeholder="3.1mi" style="width: 200px">
           <input id="convert" type="submit" value='Convert!'>
         </form>
-        <p id='result'></p>
-        <code id='jsonResult'></code>
+        <div class="result-container"></div>
+        
       </div>
     </section>
     <!-- Your web-app is https, so your scripts need to be too -->
@@ -41,6 +45,11 @@
             crossorigin="anonymous"></script>
     <script>
       $(function() {
+        const codeElem = document.createElement('code');
+        const resultP = document.createElement('p')
+        codeElem.id = 'jsonResult';
+        resultP.id = 'result'
+        const resultContainer = document.querySelector(".result-container");
         $('#convertForm').submit(function(event) {
           event.preventDefault();
           $.ajax({
@@ -48,8 +57,9 @@
             type: 'post',
             data: $('#convertForm').serialize(),
             success: function(data) {
-              $('#result').text(data.string || data);
-              $('#jsonResult').text(JSON.stringify(data));
+              resultP.textContent = data.string || data;
+              codeElem.textContent = JSON.stringify(data);
+              resultContainer.replaceChildren(resultP, codeElem);
             }
           });
         });

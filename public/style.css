@@ -1,7 +1,54 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: "Raleway", sans-serif;
+    min-height: 100vh;
+    background-color: #021;
+    color: #9ca;
+}
+h3{
+    margin-bottom: 1rem;
+}
+.subsection{
+    margin-bottom: 1.5rem;
+}
+hr{
+    border-color: #9ca;
+}
 code {
-    background-color: whitesmoke;
+    background-color: #acb;
+    padding: 2px 5px;
+    border-radius: 2px;
+    color: #132;
+    margin-bottom: 5px;
+    display: inline-block;
 }
 
 section, header {
     margin: 50px;
+}
+
+input{
+    padding: 5px 1rem;
+    font-family: "Raleway", sans-serif;
+    border-radius: 5px;
+    border: none;
+}
+input[type="text"]:focus, input[type="text"]:active{
+    outline: 2px solid #5b9;
+}
+input[type="submit"]{
+    background-color: #5b9;
+}
+input[type="submit"]:hover{
+    background-color: #9ca;
+}
+#convertForm{
+    margin-bottom: 1rem;
+}
+#result{
+    margin-bottom: 10px;
 }

@@ -57,7 +57,9 @@ app.post('/api/convert', (req, res) => {
   const returnNum = convertHandler.convert(initNum, initUnit);
   const returnUnit = convertHandler.getReturnUnit(initUnit);
   const responseString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
-
+  if (initNum === 'invalid number' || initUnit === 'invalid unit') {
+    return res.send(responseString);
+  }
   const resObj = { initNum, initUnit, returnNum, returnUnit, string: responseString };
   // console.log(resObj);
 
